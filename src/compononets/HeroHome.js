@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from './ui/button'
 
-export default function CallToAction() {
+export default function HeroHome() {
   return (
     <div className='bg-[#495E57] grid md:grid-cols-2 md:p-8 justify-center align-middle'>
         <div className="w-full scroll-m-20 grid grid-flow-row gap-2 md:gap-5 lg:gap-7 px-5 lg:px-10 py-8 mx-auto justify-center align-middle place-content-center">

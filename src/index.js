@@ -9,6 +9,9 @@ import {
 } from "react-router-dom";
 import ErrorPage from "./error-page";
 import { getContact } from './Contact';
+import Reservetable from './Reservetable';
+import Menu from './Menu';
+import Checkout from './Checkout';
 
 const router = createBrowserRouter([
   {
@@ -19,6 +22,21 @@ const router = createBrowserRouter([
   {
     path: "/contact",
     element: <getContact />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/reservetable",
+    element: <Reservetable />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/menu",
+    element: <Menu />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/checkout",
+    element: <Checkout />,
     errorElement: <ErrorPage />,
   },
   

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Button } from './ui/button';
 
 export default function Specials() {
 
@@ -49,6 +50,16 @@ export default function Specials() {
           price: 11.95
         },
         {
+          name: "Pho (Vietnam)",
+          speciality: "Broth noodle soup with meat, herbs, and vegetables",
+          price: 11.95
+        },
+        {
+          name: "Pho (Vietnam)",
+          speciality: "Broth noodle soup with meat, herbs, and vegetables",
+          price: 11.95
+        },
+        {
           name: "Paella (Spain)",
           speciality: "Rice dish with seafood, chicken, vegetables, and saffron",
           price: 22.50
@@ -58,23 +69,24 @@ export default function Specials() {
       
       const myspecialities = foodSpecialties.map((Specials, index) => {
         return (
-            <div key={index + 1} className=' grid grid-cols-4 p-4 shadow border-8 border-white rounded-md'>
-            <img className='align-middle self-center rounded-md pr-4' src="/download.jpeg" alt="" />
-            <div>
-            <h3 className='font-semibold'>{Specials.name} :</h3> 
-            <p className='m-2 '>{Specials.speciality}</p>
-            </div>
+            <div key={index + 1} className='grid grid-rows-[1fr_2fr_1fr_auto] gap-4 ~p-1/4 shadow border-8 border-white rounded-md'>
+
+            <img className='rounded-md object-cover w-full h-full' src="/download.jpeg" alt="" />
+            <div> <h3 className='font-semibold'>{Specials.name} </h3> <p className='m-2 text-gray-500'>{Specials.speciality}</p></div>
             <span className='self-center font-bold text-center'>${Specials.price}</span>
-            <div className=''><img className='w-16 h-16' src="/add2.svg" alt="" /></div>
+            <Button variant='outline' size='small' className='self-center bg-yellow-300'><img className='w-8 h-8' src="/add2.svg" alt="" />Order</Button>
+
             </div>
         )
     })
     console.log(myspecialities);
   return (
-    <>
-        <ul className='grid grid-flow-row justify-start gap-5 bg-slate-50 p-4'>
+    <>  <div className="container mx-auto">
+    <h2 className='~text-2xl/4xl font-bold'>Our speciality</h2>
+    <ul className='grid grid-flow-row md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-start gap-5 bg-slate-50 p-4'>
            { myspecialities }
         </ul>
+    </div>
     </>
   )
 }
