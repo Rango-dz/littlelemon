@@ -1,13 +1,21 @@
 import React, { useState } from 'react';
 import { Button } from './ui/button';
-import { Separator } from "./ui/separator";
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  navigationMenuTriggerStyle,
+} from "../compononets/ui/navigation-menu";
+import { Link, NavLink } from 'react-router-dom';
 
-function HamburgerMenu() {
+function HamburgerMenu(menu) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
 
   return (
     <div className="flex justify-between items-center">
@@ -29,7 +37,7 @@ function HamburgerMenu() {
 
       {/* Close Button (Always visible with higher z-index when menu is open) */}
       <Button variant="outline"
-        className={`md:hidden absolute top-2 right-4 z-50 ${
+        className={`md:hidden absolute top-3 right-4 z-50 ${
           isOpen ? 'opacity-100' : 'opacity-0'
         }`}
         onClick={toggleMenu}
@@ -49,35 +57,16 @@ function HamburgerMenu() {
 
       {/* Menu Container */}
       <nav
-        className={`mt-6 absolute top-10 left-0 h-screen w-1/3 bg-white md:bg-transparent transition duration-300 ease-in-out ${
-          isOpen ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'
+        className={`mt-6 absolute top-10 left-0 h-screen w-auto p-4 border-spacing-4 border-8 border-gray-100 rounded-md bg-white md:bg-transparent transition duration-300 ease-in-out ${
+          isOpen ? 'opacity-100 translate-x-0 z-50' : 'opacity-0 translate-x-full z-50 hidden'
         }`}
       >
-        <ul className="flex flex-col md:flex-row md:space-x-8  md:p-0 w-full">
-        
-          <li className="mb-2 md:mb-0 hover:bg-gray-100 transition duration-200 ease-in-out rounded-md w-full h-full hover:cursor-pointer border-b px-6 py-2">
-            <a href="/" className="text-xl font-medium text-gray-700 hover:text-gray-600">
-              Home
-            </a>
-          </li>
-
-          <li className="mb-2 md:mb-0 hover:bg-slate-100 transition duration-200 ease-in-out rounded-md w-full h-full hover:cursor-pointer border-b px-6 py-2">
-            <a href="/food" className="text-xl font-medium text-gray-700 hover:text-gray-600">
-              Food
-            </a>
-          </li>
-
-          <li className="mb-2 md:mb-0 hover:bg-slate-100 transition duration-200 ease-in-out rounded-md w-full h-full hover:cursor-pointer border-b px-6 py-2">
-            <a href="/about" className="text-xl font-medium text-gray-700 hover:text-gray-600">
-              About
-            </a>
-          </li>
-
-          <li className="mb-2 md:mb-0 hover:bg-slate-100 transition duration-200 ease-in-out rounded-md w-full h-full hover:cursor-pointer border-b px-6 py-2">
-            <a href="/contact" className="text-xl font-medium text-gray-700 hover:text-gray-600">
-              Contact
-            </a>
-          </li>
+        <ul className="flex flex-col md:flex-row md:space-x-8  md:p-0 w-full z-10">
+        <NavigationMenu orianation="vertical">
+          <NavigationMenuList className='flex flex-col'>
+          {menu.listMenu}
+          </NavigationMenuList>
+        </NavigationMenu>
 
         </ul>
       </nav>

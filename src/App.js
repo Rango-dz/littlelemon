@@ -1,16 +1,23 @@
 import Header from './compononets/Header';
 import Main from './compononets/Main';
 import Footer from './compononets/Footer';
-import CallToAction from './compononets/CallToAction';
+import Specials from './compononets/Specials';
+import HeroHome from './compononets/HeroHome';
+import HomePromoOne from './compononets/HomePromoOne';
+import HomeCofee from './compononets/HomeCofee';
 
 function App() {
   return (
-    <div className='grid grid-flow-row justify-stretch'>
+    <>
     <Header />
-    <CallToAction />
-    <Main/>
+     <HeroHome />
+    <main className='mx-auto flex flex-col items-center gap-10'>
+    <HomePromoOne />
+    <Specials />
+    <HomeCofee />
+    </main>
     <Footer />
-    </div>
+    </>
   );
 }
 

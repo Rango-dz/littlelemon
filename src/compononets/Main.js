@@ -1,12 +1,9 @@
 import React from 'react'
-import CallToAction from './CallToAction'
-import Specials from './Specials'
 
-export default function Main() {
+export default function Main({children}) {
   return (
-    <div className='container mt-5 px-3 py-5 bg-light rounded-3 shadow-lg mx-auto'>
-      
-      <Specials />
-    </div>
+    <main className='container ~mt-5/1  0 px-3 py-5 bg-light text-center mx-auto'>
+      {children}
+    </main>
   )
 }

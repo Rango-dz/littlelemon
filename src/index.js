@@ -8,10 +8,11 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import ErrorPage from "./error-page";
-import { getContact } from './Contact';
-import Reservetable from './Reservetable';
+import Contact from './Contact';
+import BookingPage from './BookingPage';
 import Menu from './Menu';
 import Checkout from './Checkout';
+import Success from './Success';
 
 const router = createBrowserRouter([
   {
@@ -21,12 +22,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/contact",
-    element: <getContact />,
+    element: <Contact />,
     errorElement: <ErrorPage />,
   },
   {
-    path: "/reservetable",
-    element: <Reservetable />,
+    path: "/booking",
+    element: <BookingPage />,
     errorElement: <ErrorPage />,
   },
   {
@@ -39,7 +40,12 @@ const router = createBrowserRouter([
     element: <Checkout />,
     errorElement: <ErrorPage />,
   },
-  
+  {
+    path: "/success",
+    element: <Success />,
+    errorElement: <ErrorPage />,
+  },
+
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
