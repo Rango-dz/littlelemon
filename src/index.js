@@ -13,6 +13,8 @@ import BookingPage from './BookingPage';
 import Menu from './Menu';
 import Checkout from './Checkout';
 import Success from './Success';
+import { DataProvider } from './compononets/DataContext';
+
 
 const router = createBrowserRouter([
   {
@@ -51,7 +53,9 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+  <DataProvider>
     <RouterProvider router={router} />
+  </DataProvider>
   </React.StrictMode>
 );
 

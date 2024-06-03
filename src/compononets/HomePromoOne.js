@@ -3,7 +3,7 @@ import React from 'react'
 export default function HomePromoOne() {
   return (
     
-    <div className="flex flex-col items-center justify-center h-screen gap-10 mb-10 w-full bg-[url('/public/special.png')] object-cover bg-no-repeat bg-cover border-b-8 border-yellow-400">
+    <div className="flex flex-col items-center justify-center min-h-screen gap-10 mb-10 w-full bg-[url('/public/special.png')] object-cover bg-no-repeat bg-cover border-b-8 border-yellow-400">
     <div>
     <img className='w-16 h-16 animate-in transition-all duration-500 ease-in' src='/lemon.svg' alt=''></img></div>
     <div className='text-center ~text-4xl/8xl font-bold capitalize flex flex-col items-center justify-center ~gap-2/5'>

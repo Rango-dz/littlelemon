@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Link, NavLink } from 'react-router-dom';
+import React, { useEffect, useMemo, useState } from 'react'
+import { NavLink } from 'react-router-dom';
 import HamburgerMenu from './HambergerMenu';
 import {
   NavigationMenu,
@@ -9,6 +9,7 @@ import {
   navigationMenuTriggerStyle,
 } from "../compononets/ui/navigation-menu";
 import { Input } from './ui/input';
+import { OrderListPop } from './OrderListPop';
 
 
 
@@ -16,7 +17,7 @@ export default function Nav() {
 
   const [listMenu, setListMenu] = useState([]);
 
-  const navmenu = [
+  const navmenu = useMemo(() =>[
     {
       name: "Home",
       path: "/",
@@ -30,10 +31,7 @@ export default function Nav() {
     { name: "Contact Us",
       path: "/contact",
     },
-    { name: "Checkout",
-      path: "/checkout",
-    },
-  ];
+  ], []);
 
   useEffect(() => {
     const listMenus = navmenu.map((menu, index) => {
@@ -49,7 +47,7 @@ export default function Nav() {
 })
 
     setListMenu(listMenus)
-  },[])
+  },[navmenu])
 
   return (
   <>
@@ -63,6 +61,7 @@ export default function Nav() {
         <NavigationMenu className='justify-center justify-items-center items-center hidden md:flex'>
           <NavigationMenuList>
             {listMenu}
+            <OrderListPop />
           </NavigationMenuList>
         </NavigationMenu>
         <HamburgerMenu listMenu={listMenu} />

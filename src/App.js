@@ -5,12 +5,16 @@ import Specials from './compononets/Specials';
 import HeroHome from './compononets/HeroHome';
 import HomePromoOne from './compononets/HomePromoOne';
 import HomeCofee from './compononets/HomeCofee';
+import { Toaster } from './compononets/ui/toaster';
 
 function App() {
+
+
   return (
     <>
     <Header />
-     <HeroHome />
+    <Toaster />
+    <HeroHome />
     <main className='mx-auto flex flex-col items-center gap-10'>
     <HomePromoOne />
     <Specials />

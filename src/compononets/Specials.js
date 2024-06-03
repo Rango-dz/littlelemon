@@ -1,60 +1,93 @@
-import React from 'react'
+import React, { useContext, useEffect, useMemo } from 'react'
 import { Button } from './ui/button';
+import DataContext from './DataContext';
+import { useToast } from "./ui/use-toast"
+
 
 export default function Specials() {
+  const { ordersData, setOrdersData } = useContext(DataContext);
+  const  {toast} = useToast()
 
-    const foodSpecialties = [
+  //this function should add orders into ordersData state, this function trigger when a use click on order button ?
+  const saveDatainState = (data) => {
+    setOrdersData(prevOrdersData => [...prevOrdersData , data])
+  }
+
+  useEffect(() => {
+    console.log('food', ordersData);
+  },[ordersData])
+  
+    //list of food for our Menu hardcoded for now
+    const foodSpecialties = useMemo(()=>[
         {
           name: "Sushi (Japan)",
           speciality: "Vinegared rice with various seafood and toppings",
           price: 18.99,
-          image: "/Sushi.png"
+          image: "/Sushi.png",
+          available: true,
+          id:1
         },
         {
           name: "Pizza (Italy)",
           speciality: "Flatbread topped with tomato sauce, cheese, and various toppings",
           price: 12.50,
-          image: "/Pizza.png"
+          image: "/Pizza.png",
+          available: false,
+          id:2
         },
         {
           name: "Tacos (Mexico)",
           speciality: "Small corn tortillas filled with meat, vegetables, and salsa",
           price: 8.95,
-          image: "/Tacos.png"
+          image: "/Tacos.png",
+          available: true,
+          id:3
         },
         {
           name: "Pad Thai (Thailand)",
           description: "Stir-fried rice noodles with vegetables, egg, and protein",
           price: 15.75,
-          image: "/Pad_Thai.png"
+          image: "/Pad_Thai.png",
+          available: true,
+          id:4
         },
         {
           name: "Jerk Chicken (Jamaica)",
           description: "Spicy chicken marinated in a blend of allspice, thyme, Scotch bonnet peppers, and other seasonings",
           price: 16.25,
-          image: "/Jerk_Chicken.png"
+          image: "/Jerk_Chicken.png",
+          available: true,
+          id:5
         },
         {
           name: "Poutine (Canada)",
           description: "French fries topped with cheese curds and gravy",
           price: 9.95,
-          image: "/Poutine.webp"
+          image: "/Poutine.webp",
+          available: true,
+          id:6
         },
         {
           name: "Baklava (Greece)",
           description: "Layered pastry filled with chopped nuts and sweetened with syrup",
           price: 7.50,
-          image: "/Baklava.png"
+          image: "/Baklava.png",
+          available: true,
+          id:7
         },
         {
           name: "Bangers and Mash (England)",
           description: "Sausages served with mashed potatoes",
           price: 14.75,
-          image: "/Bangers.png"
+          image: "/Bangers.png",
+          available: true,
+          id:8
         },
        
-      ];
+      ],[]);
 
+      //maping over the list food and list them as card in front-end
+      //problem there is a delay on Onclick function, consol log return first click empty second click the first click
       const myspecialities = foodSpecialties.map((Specials, index) => {
         return (
             <div key={index + 1} className='grid grid-rows-[1fr_auto_auto_auto] gap-4 ~p-1/4 shadow border-8 border-white rounded-md'>
@@ -65,20 +98,36 @@ export default function Specials() {
             <p className='m-2 text-gray-500 text-left'>{Specials.description}</p>
             </div>
             <span className='self-center font-bold text-center'>${Specials.price}</span>
-            <Button variant='outline' size='small' className='self-center bg-yellow-300'><img className='w-8 h-8' src="/add2.svg" alt="" />Order</Button>
+            {Specials.available ? 
+            <Button onClick={() => {
+              toast({
+          title: "Your Order Add to Cart",
+          description: "Check Your Cart For More Info",
+        });saveDatainState(Specials);}
+        } variant='outline' size='small' className='self-center bg-yellow-300'>
+            <img className='w-8 h-8' src="/add2.svg" alt="" />Order</Button>
+            :
+            <Button disabled variant='outline' size='small' className='self-center bg-gray-300'>
+            <img className='w-8 h-8' src="/add2.svg" alt="" />Out of Stock</Button>
+            }
 
             </div>
         )
     })
     
   return (
-    <>
+ 
+    <DataContext.Provider value={ordersData}>
     <div className=" ~mt-5/10 ~mb-5/10" id='menu'>
     <h2 className='~text-4xl/7xl font-bold ~mb-5/10 '><span className='underline underline-offset-4 decoration-yellow-400 ~ml-4/10'>Our</span> Menu</h2>
     <ul className='container grid grid-flow-row md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-start gap-5 bg-slate-50 p-4'>
-           { myspecialities }
+           { myspecialities  ? 
+           myspecialities : 
+           <span>Dish Not Found</span>
+           }
         </ul>
     </div>
-    </>
+    </DataContext.Provider>
+
   )
 }

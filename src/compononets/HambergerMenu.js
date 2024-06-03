@@ -8,6 +8,7 @@ import {
   navigationMenuTriggerStyle,
 } from "../compononets/ui/navigation-menu";
 import { Link, NavLink } from 'react-router-dom';
+import { OrderListPop } from './OrderListPop';
 
 function HamburgerMenu(menu) {
   const [isOpen, setIsOpen] = useState(false);
@@ -65,9 +66,9 @@ function HamburgerMenu(menu) {
         <NavigationMenu orianation="vertical">
           <NavigationMenuList className='flex flex-col'>
           {menu.listMenu}
+          <OrderListPop />
           </NavigationMenuList>
         </NavigationMenu>
-
         </ul>
       </nav>
     </div>
