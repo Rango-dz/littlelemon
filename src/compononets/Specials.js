@@ -9,13 +9,25 @@ export default function Specials() {
   const  {toast} = useToast()
 
   //this function should add orders into ordersData state, this function trigger when a use click on order button ?
-  const saveDatainState = (data) => {
-    setOrdersData(prevOrdersData => [...prevOrdersData , data])
-  }
+  const saveDataInState = (data) => {
+    setOrdersData(prevOrdersData => {
+      const existingItemIndex = prevOrdersData.findIndex(item => item.id === data.id);
+  
+      if (existingItemIndex !== -1) {
+        // If the item already exists, create a new array with the updated item
+        return prevOrdersData.map((item, index) =>
+          index === existingItemIndex ? { ...item, qts: item.qts + 1 } : item
+        );
+      } else {
+        // If the item does not exist, add the new item to the array
+        return [...prevOrdersData, data];
+      }
+    });
 
-  useEffect(() => {
-    console.log('food', ordersData);
-  },[ordersData])
+  };
+  
+
+  
   
     //list of food for our Menu hardcoded for now
     const foodSpecialties = useMemo(()=>[
@@ -25,7 +37,8 @@ export default function Specials() {
           price: 18.99,
           image: "/Sushi.png",
           available: true,
-          id:1
+          id:1,
+          qts: 1
         },
         {
           name: "Pizza (Italy)",
@@ -33,7 +46,8 @@ export default function Specials() {
           price: 12.50,
           image: "/Pizza.png",
           available: false,
-          id:2
+          id:2,
+          qts: 1
         },
         {
           name: "Tacos (Mexico)",
@@ -41,7 +55,8 @@ export default function Specials() {
           price: 8.95,
           image: "/Tacos.png",
           available: true,
-          id:3
+          id:3,
+          qts: 1
         },
         {
           name: "Pad Thai (Thailand)",
@@ -49,7 +64,8 @@ export default function Specials() {
           price: 15.75,
           image: "/Pad_Thai.png",
           available: true,
-          id:4
+          id:4,
+          qts: 1
         },
         {
           name: "Jerk Chicken (Jamaica)",
@@ -57,7 +73,8 @@ export default function Specials() {
           price: 16.25,
           image: "/Jerk_Chicken.png",
           available: true,
-          id:5
+          id:5,
+          qts: 1
         },
         {
           name: "Poutine (Canada)",
@@ -65,7 +82,8 @@ export default function Specials() {
           price: 9.95,
           image: "/Poutine.webp",
           available: true,
-          id:6
+          id:6,
+          qts: 1
         },
         {
           name: "Baklava (Greece)",
@@ -73,7 +91,8 @@ export default function Specials() {
           price: 7.50,
           image: "/Baklava.png",
           available: true,
-          id:7
+          id:7,
+          qts: 1
         },
         {
           name: "Bangers and Mash (England)",
@@ -81,7 +100,8 @@ export default function Specials() {
           price: 14.75,
           image: "/Bangers.png",
           available: true,
-          id:8
+          id:8,
+          qts: 1
         },
        
       ],[]);
@@ -103,7 +123,7 @@ export default function Specials() {
               toast({
           title: "Your Order Add to Cart",
           description: "Check Your Cart For More Info",
-        });saveDatainState(Specials);}
+        });saveDataInState(Specials);}
         } variant='outline' size='small' className='self-center bg-yellow-300'>
             <img className='w-8 h-8' src="/add2.svg" alt="" />Order</Button>
             :

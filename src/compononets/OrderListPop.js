@@ -15,16 +15,46 @@ import { useNavigate } from 'react-router-dom';
 
 export function OrderListPop() {
   const { ordersData } = useContext(DataContext);
-  
-  const [orderList, setOrderList] = useState(null);
+
+  const [orderList, setOrderList] = useState([]);
   
   const navigate  = useNavigate();
   
   useEffect(()=> {
     setOrderList(ordersData)
   },[ordersData])
+
+  const renderCheckoutList = (orderList) => {
+    if (orderList.length === 0) {
+      return 'Cart is Empty';
+    }
   
-  console.log('from orderListpop', orderList)
+    return orderList.map((item) => (
+      <div key={item.id} className="flex flex-row">
+        <img src={item.image} className="w-10 h-10" />
+        <div>{item.name}</div>
+        <div>{item.qts}</div>
+        <div>${item.qts * item.price}</div>
+      </div>
+    ));
+  };
+  
+  const checkoutList = renderCheckoutList(orderList);
+
+
+  const calculateCheckoutPrice = (orderList) => {
+    if (!orderList || orderList.length === 0) {
+      return 0;
+    }
+  
+    return orderList.reduce((acc, current) => {
+      return acc + (current.price * current.qts);
+    }, 0);
+  };
+  
+  const checkoutPrice = calculateCheckoutPrice(orderList);
+  
+
 
   return (
     <Sheet>
@@ -46,8 +76,11 @@ export function OrderListPop() {
             All of your orders listed here
           </SheetDescription>
         </SheetHeader>
-        <div className="uppercase font-semibold antialiased animate-in transition-transform duration-200 ease-in">Orders 
-      <span> {orderList && orderList.length} </span>
+        <div className="uppercase font-semibold antialiased animate-in transition-transform duration-200 ease-in">
+      <span> 
+        { checkoutList}
+        Total Price : ${ checkoutPrice }
+      </span>
     </div>
         <SheetFooter>
           <SheetClose asChild>
