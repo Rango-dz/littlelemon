@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Button } from './ui/button';
+import React, { useState } from "react";
+import { Button } from "./ui/button";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -7,8 +7,8 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "../compononets/ui/navigation-menu";
-import { Link, NavLink } from 'react-router-dom';
-import { OrderListPop } from './OrderListPop';
+import { Link, NavLink } from "react-router-dom";
+import { OrderListPop } from "./OrderListPop";
 
 function HamburgerMenu(menu) {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,14 +17,12 @@ function HamburgerMenu(menu) {
     setIsOpen(!isOpen);
   };
 
-
   return (
     <div className="flex justify-between items-center">
       {/* Hamburger Button */}
-      <Button variant="outline"
-        className={`md:hidden mr-4 ${
-          isOpen ? ' opacity-0' : ' opacity-100'
-        }`}
+      <Button
+        variant="outline"
+        className={`md:hidden mr-4 ${isOpen ? " opacity-0" : " opacity-100"}`}
         onClick={toggleMenu}
       >
         <svg
@@ -32,14 +30,18 @@ function HamburgerMenu(menu) {
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path fill="#49SE57" d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 8h20v2H0V17z" />
+          <path
+            fill="#49SE57"
+            d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 8h20v2H0V17z"
+          />
         </svg>
       </Button>
 
       {/* Close Button (Always visible with higher z-index when menu is open) */}
-      <Button variant="outline"
+      <Button
+        variant="outline"
         className={`md:hidden absolute top-3 right-4 z-50 ${
-          isOpen ? 'opacity-100' : 'opacity-0'
+          isOpen ? "opacity-100" : "opacity-0"
         }`}
         onClick={toggleMenu}
       >
@@ -59,16 +61,18 @@ function HamburgerMenu(menu) {
       {/* Menu Container */}
       <nav
         className={`mt-6 absolute top-10 left-0 h-screen w-auto p-4 border-spacing-4 border-8 border-gray-100 rounded-md bg-white md:bg-transparent transition duration-300 ease-in-out ${
-          isOpen ? 'opacity-100 translate-x-0 z-50' : 'opacity-0 translate-x-full z-50 hidden'
+          isOpen
+            ? "opacity-100 translate-x-0 z-50"
+            : "opacity-0 translate-x-full z-50 hidden"
         }`}
       >
         <ul className="flex flex-col md:flex-row md:space-x-8  md:p-0 w-full z-10">
-        <NavigationMenu orianation="vertical">
-          <NavigationMenuList className='flex flex-col'>
-          {menu.listMenu}
-          <OrderListPop />
-          </NavigationMenuList>
-        </NavigationMenu>
+          <NavigationMenu orianation="vertical">
+            <NavigationMenuList className="flex flex-col">
+              {menu.listMenu}
+              <OrderListPop />
+            </NavigationMenuList>
+          </NavigationMenu>
         </ul>
       </nav>
     </div>

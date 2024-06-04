@@ -1,20 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "./error-page";
-import Contact from './Contact';
-import BookingPage from './BookingPage';
-import Menu from './Menu';
-import Checkout from './Checkout';
-import Success from './Success';
-import { DataProvider } from './compononets/DataContext';
-
+import Contact from "./Contact";
+import BookingPage from "./BookingPage";
+import Menu from "./Menu";
+import Checkout from "./Checkout";
+import Success from "./Success";
+import { DataProvider } from "./compononets/DataContext";
 
 const router = createBrowserRouter([
   {
@@ -47,16 +43,15 @@ const router = createBrowserRouter([
     element: <Success />,
     errorElement: <ErrorPage />,
   },
-
 ]);
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-  <DataProvider>
-    <RouterProvider router={router} />
-  </DataProvider>
-  </React.StrictMode>
+    <DataProvider>
+      <RouterProvider router={router} />
+    </DataProvider>
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function

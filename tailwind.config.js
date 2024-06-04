@@ -1,32 +1,37 @@
 /** @type {import('tailwindcss').Config} */
-import { fluidExtractor, fluidCorePlugins, defaultThemeScreensInRems, defaultThemeFontSizeInRems } from 'fluid-tailwind'
+import {
+  fluidExtractor,
+  fluidCorePlugins,
+  defaultThemeScreensInRems,
+  defaultThemeFontSizeInRems,
+} from "fluid-tailwind";
 
 module.exports = {
   darkMode: ["class"],
   content: {
     files: [
-      './pages/**/*.{js,jsx}',
-    './components/**/*.{js,jsx}',
-    './app/**/*.{js,jsx}',
-    './src/**/*.{js,jsx}',
-  ],
-  extract: fluidExtractor()
-},
+      "./pages/**/*.{js,jsx}",
+      "./components/**/*.{js,jsx}",
+      "./app/**/*.{js,jsx}",
+      "./src/**/*.{js,jsx}",
+    ],
+    extract: fluidExtractor(),
+  },
   prefix: "",
   theme: {
     fontSize: defaultThemeFontSizeInRems,
     screens: defaultThemeScreensInRems,
     fluid: {
-      defaultScreens: ['20rem', '150rem']
+      defaultScreens: ["20rem", "150rem"],
     },
     container: {
       center: true,
       padding: "2rem",
       screens: {
-        "sm": "640px",
-        "md": "768px",
-        "lg": "1024px",
-        "xl": "1400px",
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1400px",
       },
     },
     extend: {
@@ -86,9 +91,10 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"),
-  fluidCorePlugins,
-  require('@tailwindcss/typography'),
-  require('@tailwindcss/container-queries'),
-],
-}
+  plugins: [
+    require("tailwindcss-animate"),
+    fluidCorePlugins,
+    require("@tailwindcss/typography"),
+    require("@tailwindcss/container-queries"),
+  ],
+};
