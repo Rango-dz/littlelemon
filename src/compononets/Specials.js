@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo } from "react";
+import React, { useContext, useMemo } from "react";
 import { Button } from "./ui/button";
 import DataContext from "./DataContext";
 import { useToast } from "./ui/use-toast";
@@ -17,7 +17,7 @@ export default function Specials() {
       if (existingItemIndex !== -1) {
         // If the item already exists, create a new array with the updated item
         return prevOrdersData.map((item, index) =>
-          index === existingItemIndex ? { ...item, qts: item.qts + 1 } : item,
+               index === existingItemIndex ? { ...item, qts: item.qts + 1 } : item
         );
       } else {
         // If the item does not exist, add the new item to the array

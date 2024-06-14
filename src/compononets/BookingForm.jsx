@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-export default function Reserve() {
+export default function BookingForm({ slots, onTimeSlotChange }) {
   const navigate = useNavigate();
 
   const {
@@ -14,8 +14,7 @@ export default function Reserve() {
       name: "",
       email: "",
       phone: "",
-      date: 0,
-      time: 0,
+      date: "",
       guests: 0,
       note: "",
     },
@@ -23,10 +22,18 @@ export default function Reserve() {
 
   const onSubmit = (data) => {
     if (Object.keys(errors).length === 0) {
-      navigate("/success", {
+      navigate("/booking", {
         state: data,
         replace: true,
       });
+    }
+  };
+
+  const handleTimeSlotChange = (event) => {
+    const selectedTime = event.target.value;
+    const selectedSlot = slots.find(slot => slot.time === selectedTime);
+    if (selectedSlot) {
+      onTimeSlotChange(selectedSlot);
     }
   };
 
@@ -93,16 +100,22 @@ export default function Reserve() {
             {errors.date && <span>This field is required.</span>}
           </div>
           <div>
-            <label className="text-left font-semibold" htmlFor="time">
-              Time
+            <label className="text-left font-semibold" htmlFor="timeSlot">
+              Time Slot
             </label>
-            <input
+            <select
               className="~p-2/3 rounded-md border focus:shadow hover:shadow ~border-gray-400shadow-inner focus-within:outline-yellow-300 mb-5 w-full"
-              type="time"
-              id="time"
-              {...register("time", { valueAsTime: true, required: true })}
-            />
-            {errors.time && <span>This field is required.</span>}
+              id="timeSlot"
+              {...register("timeSlot", { required: true })}
+              onChange={handleTimeSlotChange}
+            >
+              {slots.map((slot, index) => (
+                <option key={index} value={slot.time} disabled={!slot.available}>
+                  {slot.time}
+                </option>
+              ))}
+            </select>
+            {errors.timeSlot && <span>This field is required.</span>}
           </div>
           <div>
             <label className="text-left font-semibold" htmlFor="guests">

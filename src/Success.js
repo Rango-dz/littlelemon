@@ -1,9 +1,15 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Button } from "./compononets/ui/button";
+import { Button } from "./compononets/ui/button"
 
 export default function Success() {
   const location = useLocation();
+  console.log("location", location.state);
+
+  const keys =
+    location.state && typeof location.state === "object" && !Array.isArray(location.state)
+      ? Object.keys(location.state)
+      : [];
 
   return (
     <div className="bg-yellow-50 w-full h-full flex justify-center items-center">
@@ -18,10 +24,9 @@ export default function Success() {
             Success!
           </h1>
           <p className="text-gray-700 font-semibold flex flex-col items-center gap-3">
-            <span>Reservation for : {location.state.name}</span>
-            <span>ON : {location.state.date.toLocaleDateString()}</span>
-            <span>AT : {location.state.time}</span>
-            <span className="mx-auto">Has Been Made Successfully.</span>
+            {keys.length > 0 && keys.map((key) => (
+              <span key={key}>{key}: {typeof location.state[key] === "object" ? location.state[key].toLocaleDateString() : location.state[key]}</span>
+            ))}
           </p>
           <Link
             to="/"
