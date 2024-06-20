@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import {
   AlertDialog,
@@ -14,13 +14,14 @@ import {
 } from "./ui/alert-dialog"
 
 export default function BookingForm({ slots, onTimeSlotChange }) {
-  const [forData, setFormData] = useState();
+  const [formData, setFormData] = useState();
   const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -32,6 +33,9 @@ export default function BookingForm({ slots, onTimeSlotChange }) {
       note: "",
     },
   });
+
+  const watchedFields = watch(["name", "email", "phone", "date", "timeSlot", "guests"]);
+  const allFieldsFilled = watchedFields.every(field => field !== "" && field !== undefined);
 
   const onSubmit = (data) => {
     if (Object.keys(errors).length === 0) {
@@ -47,6 +51,8 @@ export default function BookingForm({ slots, onTimeSlotChange }) {
       onTimeSlotChange(selectedSlot);
     }
   };
+
+  const isDisabled = !allFieldsFilled;
 
   return (
     <div>
@@ -135,7 +141,7 @@ export default function BookingForm({ slots, onTimeSlotChange }) {
               {...register("timeSlot", { required: true })}
               onChange={handleTimeSlotChange}
             >
-              <option key={"pick a tieme"}>
+              <option key={"pick a time"} value="">
                   Pick a Time
               </option>
               {slots.map((slot, index) => (
@@ -154,7 +160,7 @@ export default function BookingForm({ slots, onTimeSlotChange }) {
               className="~p-2/3 rounded-md border focus:shadow hover:shadow ~border-gray-400shadow-inner focus-within:outline-yellow-300 mb-5 w-full"
               type="number"
               id="guests"
-              min={0}
+              min={1}
               max={8}
               aria-required="true"
               aria-invalid={errors.guests ? "true" : "false"}
@@ -181,15 +187,16 @@ export default function BookingForm({ slots, onTimeSlotChange }) {
             ></textarea>
             {errors.note && <span>This field is required.</span>}
           </div>
-      <AlertDialog type="submit">
+      <AlertDialog type="submit" disabled={isDisabled}>
       <AlertDialogTrigger asChild>
       <button
             variant="outline"
             value="Submit"
-            className="mt-5 ~p-2/3 bg-yellow-300 hover:bg-yellow-400 uppercase rounded shadow font-bold"
+            className={`mt-5 ~p-2/3 bg-yellow-300 hover:bg-yellow-400 uppercase rounded shadow font-bold ${isDisabled ? 'disabled' : ''}`}
             type="submit"
             aria-label="Submit form"
             role="button"
+            disabled={isDisabled}
           >
             Book now
           </button>
@@ -197,7 +204,7 @@ export default function BookingForm({ slots, onTimeSlotChange }) {
       <AlertDialogContent>
         <AlertDialogHeader className="mb-10">
           <AlertDialogTitle>Please Confirm Your Order</AlertDialogTitle>
-          <AlertDialogDescription >
+          <AlertDialogDescription>
             This action cannot be undone. 
           </AlertDialogDescription>
         </AlertDialogHeader>
@@ -211,7 +218,7 @@ export default function BookingForm({ slots, onTimeSlotChange }) {
           className="~p-2/3 bg-yellow-400 hover:bg-yellow-500 uppercase rounded shadow font-bold"
           aria-label="Confirm"
           role="button" 
-          onClick={()=> navigate("/success", {state:forData, replace: true })}>Confirm</AlertDialogAction>
+          onClick={() => navigate("/success", {state: formData, replace: true })}>Confirm</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

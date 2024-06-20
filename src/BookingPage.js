@@ -20,7 +20,7 @@ const fetchAvailableTimes = async (date) => {
 export default function BookingPage() {
   const [timeSlots, setTimeSlots] = useState(() => {
     const savedslots = localStorage.getItem("timeslot");
-    return savedslots ? JSON.parse(savedslots) : [];
+    return savedslots === null || savedslots.length === 0 ? [] : JSON.parse(savedslots);
   });
 
   
@@ -31,11 +31,13 @@ export default function BookingPage() {
     const initialTimes = await fetchAvailableTimes(today);
     console.log("game",timeSlots);
     setTimeSlots(initialTimes);
+    localStorage.setItem("timeslot", JSON.stringify(timeSlots));
   };
+
   const savedslots = localStorage.getItem("timeslot");
-   return savedslots ?  undefined : initializeTimes()
- },[timeSlots])
-    
+  savedslots === null || savedslots.length === 0 ?  initializeTimes() : console.log( "already initialized");
+
+ },[])
 
   
   // Update times when a new date is selected
@@ -54,7 +56,7 @@ export default function BookingPage() {
   };
 
   useEffect(()=> {
-    
+    localStorage.removeItem("timeslot");
     localStorage.setItem("timeslot", JSON.stringify(timeSlots));
     console.log(timeSlots);
   }, [timeSlots])

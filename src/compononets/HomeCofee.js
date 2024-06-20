@@ -1,7 +1,14 @@
 import React from "react";
 import { Button } from "./ui/button";
+import { useNavigate } from "react-router-dom";
 
 export default function HomeCofee() {
+
+  const navigation = useNavigate()
+
+  const orderMenu = () => {
+    navigation('/menu');
+  }
   return (
     <div className=" w-[90%] flex flex-col lg:flex-row justify-around lg:justify-between items-center bg-[#f3f4f6] text-white rounded-lg mx-auto gap-10 ~mt-5/10 ~mb-5/10 min-h-screen">
       <div className="flex flex-col text-center ~p-4/8 ~gap-5/10 justify-center items-center align-middle mt-5 lg:mt-0">
@@ -20,6 +27,7 @@ export default function HomeCofee() {
           variant="outline"
           aria-label="Order Now"
           className="bg-yellow-300 text-black ~text-xl/2xl ~px-4/8 ~py-4/8 ~w-40/80 mt-5 hover:bg-yellow-400 border-yellow-300"
+          onClick={orderMenu}
         >
           Order Now
         </Button>
