@@ -1,14 +1,14 @@
-/* global fetchAPI */
-
 import Header from "./compononets/Header";
 import Footer from "./compononets/Footer";
 import ReservetableHero from "./compononets/ReservetableHero";
 import { useEffect, useState } from "react";
-import AvailableSlots from "./compononets/AvailableSlots";
+// import AvailableSlots from "./compononets/AvailableSlots";
 import BookingForm from "./compononets/BookingForm";
+import { fetchAPI } from "./lib/api";
 
 // Function to fetch available times for a given date
 const fetchAvailableTimes = async (date) => {
+
   const times = await fetchAPI(date);
   return times.map(time => ({
     time,
@@ -18,22 +18,30 @@ const fetchAvailableTimes = async (date) => {
 };
 
 export default function BookingPage() {
-  const [timeSlots, setTimeSlots] = useState([]);
+  const [timeSlots, setTimeSlots] = useState(() => {
+    const savedslots = localStorage.getItem("timeslot");
+    return savedslots ? JSON.parse(savedslots) : [];
+  });
 
-  // Initialize times for today's date
-  useEffect(() => {
-    const initializeTimes = async () => {
-      const today = new Date().toISOString().split('T')[0];
-      const initialTimes = await fetchAvailableTimes(today);
-      setTimeSlots(initialTimes);
-    };
-    initializeTimes();
-  }, []);
+  
+ useEffect(()=>{
+   // Initialize times for today's date 
+   const initializeTimes = async () => {
+    const today = new Date();
+    const initialTimes = await fetchAvailableTimes(today);
+    console.log("game",timeSlots);
+    setTimeSlots(initialTimes);
+  };
+  const savedslots = localStorage.getItem("timeslot");
+   return savedslots ?  undefined : initializeTimes()
+ },[timeSlots])
+    
 
+  
   // Update times when a new date is selected
   const handleDateChange = async (selectedDate) => {
     const updatedTimes = await fetchAvailableTimes(selectedDate);
-    setTimeSlots(updatedTimes);
+    localStorage.setItem("timeslot", JSON.stringify(updatedTimes));
   };
 
   const handleTimeSlotChange = (selectedSlot) => {
@@ -42,14 +50,21 @@ export default function BookingPage() {
         slot.time === selectedSlot.time ? { ...slot, available: !slot.available } : slot
       )
     );
+    // localStorage.setItem("timeslot", JSON.stringify(timeSlots));
   };
+
+  useEffect(()=> {
+    
+    localStorage.setItem("timeslot", JSON.stringify(timeSlots));
+    console.log(timeSlots);
+  }, [timeSlots])
 
   return (
     <div className="grid grid-flow-row justify-stretch">
       <Header />
       <ReservetableHero />
       <main className="container ~mt-5/10 px-3 py-5 bg-light text-center mx-auto">
-        <AvailableSlots slots={timeSlots} />
+        {/* <AvailableSlots slots={timeSlots} /> */}
         <BookingForm slots={timeSlots} onTimeSlotChange={handleTimeSlotChange} onDateChange={handleDateChange} />
       </main>
       <Footer />

@@ -1,5 +1,4 @@
 import Header from "./compononets/Header";
-import Main from "./compononets/Main";
 import Footer from "./compononets/Footer";
 import Specials from "./compononets/Specials";
 import HeroHome from "./compononets/HeroHome";

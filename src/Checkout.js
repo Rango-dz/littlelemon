@@ -51,7 +51,7 @@ export default function Checkout() {
 
     return orderList.map((item, index) => (
       <div key={index} className="flex flex-row w-full justify-between align-middle text-center">
-        <img src={item.image} className="w-10 h-10" />
+        <img src={item.image} alt="success" className="w-10 h-10" />
         <div>{item.name}</div>
         <div className="flex mx-2">
           <input

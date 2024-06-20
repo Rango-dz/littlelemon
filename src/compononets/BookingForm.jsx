@@ -1,13 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "./ui/alert-dialog"
 
 export default function BookingForm({ slots, onTimeSlotChange }) {
+  const [forData, setFormData] = useState();
   const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -22,10 +35,8 @@ export default function BookingForm({ slots, onTimeSlotChange }) {
 
   const onSubmit = (data) => {
     if (Object.keys(errors).length === 0) {
-      navigate("/booking", {
-        state: data,
-        replace: true,
-      });
+      setFormData(data);
+      reset();
     }
   };
 
@@ -109,6 +120,9 @@ export default function BookingForm({ slots, onTimeSlotChange }) {
               {...register("timeSlot", { required: true })}
               onChange={handleTimeSlotChange}
             >
+              <option key={"pick a tieme"}>
+                  Pick a Time
+              </option>
               {slots.map((slot, index) => (
                 <option key={index} value={slot.time} disabled={!slot.available}>
                   {slot.time}
@@ -146,7 +160,9 @@ export default function BookingForm({ slots, onTimeSlotChange }) {
             ></textarea>
             {errors.note && <span>This field is required.</span>}
           </div>
-          <button
+      <AlertDialog type="submit">
+      <AlertDialogTrigger asChild>
+      <button
             variant="outline"
             value="Submit"
             className="mt-5 ~p-2/3 bg-yellow-300 hover:bg-yellow-400 uppercase rounded shadow font-bold"
@@ -154,6 +170,22 @@ export default function BookingForm({ slots, onTimeSlotChange }) {
           >
             Book now
           </button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader className="mb-10">
+          <AlertDialogTitle>Please Confirm Your Order</AlertDialogTitle>
+          <AlertDialogDescription >
+            This action cannot be undone. 
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel className="~p-2/3  uppercase rounded shadow font-bold">Cancel</AlertDialogCancel>
+          <AlertDialogAction 
+          className="~p-2/3 bg-yellow-400 hover:bg-yellow-500 uppercase rounded shadow font-bold" 
+          onClick={()=> navigate("/success", {state:forData, replace: true })}>Confirm</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
         </form>
       </div>
     </div>
