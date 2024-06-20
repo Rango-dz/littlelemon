@@ -70,6 +70,9 @@ export default function BookingForm({ slots, onTimeSlotChange }) {
               className="~p-2/3 rounded-md border focus:shadow hover:shadow ~border-gray-400shadow-inner focus-within:outline-yellow-300 mb-5 w-full"
               type="text"
               id="name"
+              aria-required="true"
+              aria-invalid={errors.name ? "true" : "false"}
+              tabIndex="1"
               {...register("name", { required: true })}
             />
             {errors.name && <span>This field is required.</span>}
@@ -82,6 +85,9 @@ export default function BookingForm({ slots, onTimeSlotChange }) {
               className="~p-2/3 rounded-md border focus:shadow hover:shadow ~border-gray-400shadow-inner focus-within:outline-yellow-300 mb-5 w-full"
               type="text"
               id="email"
+              aria-required="true"
+              aria-invalid={errors.email ? "true" : "false"}
+              tabIndex="2"
               {...register("email", { required: true })}
             />
             {errors.email && <span>This field is required.</span>}
@@ -94,6 +100,9 @@ export default function BookingForm({ slots, onTimeSlotChange }) {
               className="~p-2/3 rounded-md border focus:shadow hover:shadow ~border-gray-400shadow-inner focus-within:outline-yellow-300 mb-5 w-full"
               type="text"
               id="phone"
+              aria-required="true"
+              aria-invalid={errors.phone ? "true" : "false"}
+              tabIndex="3"
               {...register("phone", { required: true })}
             />
             {errors.phone && <span>This field is required.</span>}
@@ -106,6 +115,9 @@ export default function BookingForm({ slots, onTimeSlotChange }) {
               className="~p-2/3 rounded-md border focus:shadow hover:shadow ~border-gray-400shadow-inner focus-within:outline-yellow-300 mb-5 w-full"
               type="date"
               id="date"
+              aria-required="true"
+              aria-invalid={errors.date ? "true" : "false"}
+              tabIndex="4"
               {...register("date", { valueAsDate: true, required: true })}
             />
             {errors.date && <span>This field is required.</span>}
@@ -117,6 +129,9 @@ export default function BookingForm({ slots, onTimeSlotChange }) {
             <select
               className="~p-2/3 rounded-md border focus:shadow hover:shadow ~border-gray-400shadow-inner focus-within:outline-yellow-300 mb-5 w-full"
               id="timeSlot"
+              aria-required="true"
+              aria-invalid={errors.timeSlot ? "true" : "false"}
+              tabIndex="5"
               {...register("timeSlot", { required: true })}
               onChange={handleTimeSlotChange}
             >
@@ -141,6 +156,9 @@ export default function BookingForm({ slots, onTimeSlotChange }) {
               id="guests"
               min={0}
               max={8}
+              aria-required="true"
+              aria-invalid={errors.guests ? "true" : "false"}
+              tabIndex="6"
               {...register("guests", { valueAsNumber: true, required: true })}
             />
             {errors.guests && <span>This field is required.</span>}
@@ -156,6 +174,9 @@ export default function BookingForm({ slots, onTimeSlotChange }) {
               name="note"
               rows="5"
               cols="33"
+              aria-required="true"
+              aria-invalid={errors.note ? "true" : "false"}
+              tabIndex="7"
               {...register("note", { required: false })}
             ></textarea>
             {errors.note && <span>This field is required.</span>}
@@ -167,6 +188,8 @@ export default function BookingForm({ slots, onTimeSlotChange }) {
             value="Submit"
             className="mt-5 ~p-2/3 bg-yellow-300 hover:bg-yellow-400 uppercase rounded shadow font-bold"
             type="submit"
+            aria-label="Submit form"
+            role="button"
           >
             Book now
           </button>
@@ -179,9 +202,15 @@ export default function BookingForm({ slots, onTimeSlotChange }) {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel className="~p-2/3  uppercase rounded shadow font-bold">Cancel</AlertDialogCancel>
+          <AlertDialogCancel 
+          className="~p-2/3  uppercase rounded shadow font-bold"
+                  aria-label="Cancel"
+        role="button"
+          >Cancel</AlertDialogCancel>
           <AlertDialogAction 
-          className="~p-2/3 bg-yellow-400 hover:bg-yellow-500 uppercase rounded shadow font-bold" 
+          className="~p-2/3 bg-yellow-400 hover:bg-yellow-500 uppercase rounded shadow font-bold"
+          aria-label="Confirm"
+          role="button" 
           onClick={()=> navigate("/success", {state:forData, replace: true })}>Confirm</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

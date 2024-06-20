@@ -8,10 +8,24 @@ import { OrderListPop } from "./OrderListPop";
 
 function HamburgerMenu(menu) {
   const [isOpen, setIsOpen] = useState(false);
+  const menuRef = React.createRef();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+    if (isOpen) {
+      menuRef.current.focus();
+    }
   };
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Escape') {
+      setIsOpen(false);
+    } else if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      // Implement logic to navigate through the menu items
+    }
+  };
+
+ 
 
   return (
     <div className="flex justify-between items-center">
@@ -61,8 +75,13 @@ function HamburgerMenu(menu) {
             ? "opacity-100 translate-x-0 z-50"
             : "opacity-0 translate-x-full z-50 hidden"
         }`}
+         aria-label="Navigation Menu"
+        role="navigation"
+        onKeyDown={handleKeyDown}
       >
-        <ul className="flex flex-col md:flex-row md:space-x-8  md:p-0 w-full z-10">
+        <ul className="flex flex-col md:flex-row md:space-x-8  md:p-0 w-full z-10"
+        ref={menuRef}
+        >
           <NavigationMenu orianation="vertical">
             <NavigationMenuList className="flex flex-col">
               {menu.listMenu}

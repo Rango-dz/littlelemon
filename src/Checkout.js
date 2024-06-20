@@ -51,7 +51,7 @@ export default function Checkout() {
 
     return orderList.map((item, index) => (
       <div key={index} className="flex flex-row w-full justify-between align-middle text-center">
-        <img src={item.image} alt="success" className="w-10 h-10" />
+        <img src={item.image} alt={item.name} className="w-10 h-10" />
         <div>{item.name}</div>
         <div className="flex mx-2">
           <input
@@ -62,17 +62,30 @@ export default function Checkout() {
             readOnly
           ></input>
           <div className="flex flex-col">
-            <button onClick={() => dispatch({ type: ACTIONS.INCREMENT, payload: { item: item.id } })}>+</button>
-            <button onClick={() => dispatch({ type: ACTIONS.DECREMENT, payload: { item: item.id } })}>-</button>
+            <button 
+            onClick={() => dispatch({ type: ACTIONS.INCREMENT, payload: { item: item.id } })}
+              aria-label="Increment quantity"
+              role="button"
+              tabindex="1"
+              >+</button>
+            <button onClick={() => dispatch({ type: ACTIONS.DECREMENT, payload: { item: item.id } })}
+              aria-label="Decrement quantity"
+              role="button"
+              tabindex="2"
+              >-</button>
           </div>
         </div>
         <div>$ {parseFloat(parseFloat(item.qts * item.price).toFixed(2))}</div>
-        <button onClick={() => dispatch({ type: ACTIONS.REMOVEITEM, payload: { index: index } })}>Remove</button>
+        <button onClick={() => dispatch({ type: ACTIONS.REMOVEITEM, payload: { index: index } })}
+          aria-label="Remove item"
+          role="button"
+          tabindex="3"
+          >Remove</button>
       </div>
     ));
   };
 
-  const checkoutList = state.length === 0 ? "Cart is Empty" : renderCheckoutList(state);
+  const checkoutList = state.length === 0 ? "Cart is Empty" : <ul role="list" aria-label="Checkout list">{renderCheckoutList(state)}</ul>
 
   const calculateCheckoutPrice = (orderList) => {
     if (!orderList || orderList.length === 0) {

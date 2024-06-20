@@ -18,6 +18,7 @@ export default function HomeCofee() {
         </p>
         <Button
           variant="outline"
+          aria-label="Order Now"
           className="bg-yellow-300 text-black ~text-xl/2xl ~px-4/8 ~py-4/8 ~w-40/80 mt-5 hover:bg-yellow-400 border-yellow-300"
         >
           Order Now
@@ -27,7 +28,7 @@ export default function HomeCofee() {
         <img
           className="object-cover rounded-md w-full md:w-[60%] lg:w-[80%] mb-5 lg:mb-0"
           src="/cofee.jpg"
-          alt="coffee"
+          alt="A cup of coffee on a table"
         />
       </div>
     </div>

@@ -18,12 +18,14 @@ export default function CallToAction() {
           sequi qui quo maiores laborum pariatur itaque eveniet maxime quos
           obcaecati dignissimos veniam.
         </p>
-        <HashLink smooth to="/booking#reserve">
+        <HashLink smooth to="/booking#reserve" role="link" aria-label="Reserve a table">
           <Button
             variant="outline"
             className="bg-yellow-300 text-black ~text-base/2xl ~px-4/8 ~py-4/8 ~w-40/80 mt-5 hover:bg-yellow-400 border-yellow-300"
           >
             Reserve a Table
+            <span aria-hidden="true">→</span>
+            <span className="sr-only">Reserve a table at Little Lemon restaurant</span>
           </Button>
         </HashLink>
       </div>

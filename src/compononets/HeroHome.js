@@ -32,7 +32,7 @@ export default function HeroHome() {
           <img
             className="bg-cover w-full h-full object-cover rounded-md"
             src="/humberger.png"
-            alt=""
+            alt="humberger"
           />
         </div>
       </div>

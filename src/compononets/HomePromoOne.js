@@ -7,12 +7,12 @@ export default function HomePromoOne() {
         <img
           className="w-16 h-16 animate-in transition-all duration-500 ease-in"
           src="/lemon.svg"
-          alt=""
+          alt="Lemon icon"
         ></img>
       </div>
       <div className="text-center ~text-4xl/8xl font-bold capitalize flex flex-col items-center justify-center ~gap-2/5">
         <span>We have</span>{" "}
-        <span className="text-yellow-400 animate-[pulse_1.5s_infinite]">
+        <span className="text-yellow-400 animate-[pulse_1.5s_infinite]" aria-hidden="true">
           something special
         </span>{" "}
         <span>for you</span>

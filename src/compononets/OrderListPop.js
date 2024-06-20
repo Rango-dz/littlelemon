@@ -24,7 +24,7 @@ export function OrderListPop() {
 
     return ordersData.map((item) => (
       <div key={item.id} className="flex flex-row">
-        <img src={item.image} alt="" className="w-10 h-10" />
+        <img src={item.image} alt={item.name} className="w-10 h-10" />
         <div>{item.name}</div>
         <div>{item.qts}</div>
         <div>${item.qts * item.price}</div>
@@ -47,8 +47,8 @@ export function OrderListPop() {
   const checkoutPrice = calculateCheckoutPrice(ordersData);
 
   return (
-    <Sheet>
-      <SheetTrigger asChild>
+    <Sheet aria-label="Order List">
+      <SheetTrigger asChild aria-haspopup="true">
         <Button
           variant="outline"
           size="small"
@@ -63,7 +63,7 @@ export function OrderListPop() {
           </span>
         </Button>
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent aria-modal="true">
         <SheetHeader>
           <SheetTitle>Your Order List</SheetTitle>
           <SheetDescription>All of your orders listed here</SheetDescription>
@@ -75,7 +75,7 @@ export function OrderListPop() {
           </span>
         </div>
         <SheetFooter>
-          <SheetClose asChild>
+          <SheetClose asChild aria-label="Close Order List">
             <Button
               onClick={() => navigate("/checkout", { replace: true })}
               type="submit"

@@ -122,7 +122,7 @@ export default function Specials() {
           <img
             className="rounded-md object-cover w-full h-full"
             src={Specials.image}
-            alt={`${Specials.name} Dishes`}
+            alt={`Image of ${Specials.name} Dishes`}
           />
         </div>
         <div className="flex flex-col justify-between h-fit">
@@ -144,8 +144,9 @@ export default function Specials() {
             variant="outline"
             size="small"
             className="self-center bg-yellow-300"
+            aria-label={`Order ${Specials.name}`}
           >
-            <img className="w-8 h-8" src="/add2.svg" alt="" />
+            <img className="w-8 h-8" src="/add2.svg" alt="Add to cart icon" />
             Order
           </Button>
         ) : (
@@ -155,7 +156,7 @@ export default function Specials() {
             size="small"
             className="self-center bg-gray-300"
           >
-            <img className="w-8 h-8" src="/add2.svg" alt="" />
+            <img className="w-8 h-8" src="/add2.svg" alt="Add to cart icon" />
             Out of Stock
           </Button>
         )}
